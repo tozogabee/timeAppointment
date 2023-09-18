@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -150,7 +150,7 @@ public class AppointmentServiceTest {
 
         AppointmentEntity entityInDb = entityInDB();
 
-        lenient().when(this.appointmentEntityRepository.findAppointmentEntityByFromAndAndTo(newEntity.getFrom(),newEntity.getTo())).thenReturn(Optional.of(entityInDb));
+        lenient().when(this.appointmentEntityRepository.findAppointmentEntitiesBetweenFromAndTo(newEntity.getFrom(),newEntity.getTo())).thenReturn(List.of(entityInDb));
 
 
         Exception exception = assertThrows(ReservationException.class,

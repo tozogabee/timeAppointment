@@ -6,11 +6,11 @@ import com.sonrisa.timeappointmentapp.service.AppointmentService;
 import com.sonrisa.timeappointmentapp.service.exception.ReservationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -42,6 +42,12 @@ public class AppointmentController {
         AppointmentEntity newEntity = this.appointmentService.reservation(name,from, to);
 
         return ResponseEntity.status(200).body(newEntity);
+    }
+
+    @DeleteMapping(value = "/delete" ,produces = "application/json")
+    public ResponseEntity<Void> removeAllReservations() {
+        this.appointmentService.cleanUp();
+        return ResponseEntity.status(200).build();
     }
 
 }

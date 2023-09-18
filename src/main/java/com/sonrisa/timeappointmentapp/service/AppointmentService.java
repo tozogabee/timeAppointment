@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -26,21 +25,29 @@ public class AppointmentService {
             throw new ReservationException("You can not reserve before 9");
         }
 
-        if(to.getHour() > 17) {
+        if((to.isAfter(LocalDateTime.of(to.getYear(),to.getMonth(),to.getDayOfMonth(),17,00))) || from.isAfter(LocalDateTime.of(to.getYear(),to.getMonth(),to.getDayOfMonth(),17,00))) {
             throw new ReservationException("You can not reserve after 17");
         }
 
-        if(to.getHour() < from.getHour()) {
-            throw new ReservationException("reservation issue to < from");
+        if(from.isAfter(to)) {
+            throw new ReservationException("reservation issue where the from is bigger than to interval");
         }
 
         if((from.getYear() == to.getYear() && from.getMonth() == to.getMonth() && from.getDayOfMonth() == to.getDayOfMonth()) && (from.getMinute() % 30 != 0 || to.getMinute() % 30 != 0)) {
             throw new ReservationException("You can reserve only in 30 mins intervals");
         }
 
-        int duration = to.getHour() - from.getHour();
+        int durationHour = Math.abs(to.getHour() - from.getHour());
+        double durationMin = Math.abs(to.getMinute() - from.getMinute()) / 60.0;
+        double duration = 0;
 
-        if(duration > 3) {
+        if(from.getMinute() > to.getMinute()) {
+            duration = durationHour - durationMin;
+        } else if(from.getMinute() < to.getMinute()) {
+            duration = durationHour + durationMin;
+        }
+
+        if(duration > 3.0) {
             throw new ReservationException("You can not reserve more than 3 hours");
         }
 

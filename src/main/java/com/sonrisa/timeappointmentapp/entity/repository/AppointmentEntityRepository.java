@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface AppointmentEntityRepository extends JpaRepository<AppointmentEntity, Long> {
 
-    @Query("SELECT a FROM AppointmentEntity a WHERE (:fromDate BETWEEN a.from AND a.to) OR (:toDate BETWEEN a.from AND a.to)")
+    @Query("SELECT a FROM AppointmentEntity a WHERE (a.from <= :fromDate AND a.to > :fromDate) OR (a.from < :toDate AND a.to >= :toDate)")
     List<AppointmentEntity> findAppointmentEntitiesBetweenFromAndTo(@Param("fromDate") LocalDateTime fromDate,@Param("toDate") LocalDateTime toDate);
 }
