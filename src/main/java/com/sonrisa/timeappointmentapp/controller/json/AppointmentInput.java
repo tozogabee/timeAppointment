@@ -23,11 +23,11 @@ public class AppointmentInput {
     private String name;
 
     @JsonProperty("from")
-    @JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
-    private LocalDateTime from;
+    @JsonFormat(pattern="yyyy-MM-ddTHH:mm")
+    private String from;
 
     @JsonProperty("to")
-    @JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
-    private LocalDateTime to;
+    @JsonFormat(pattern="yyyy-MM-ddTHH:mm")
+    private String to;
 
 }

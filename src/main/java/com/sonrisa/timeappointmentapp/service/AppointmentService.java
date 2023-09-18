@@ -16,8 +16,8 @@ public class AppointmentService {
     @Autowired
     private AppointmentEntityRepository appointmentEntityRepository;
 
-    public Optional<AppointmentEntity> betweenTwoDates(LocalDateTime from, LocalDateTime to) {
-        return this.appointmentEntityRepository.findAppointmentEntityByFromAndAndTo(from,to);
+    public List<AppointmentEntity> betweenTwoDates(LocalDateTime from, LocalDateTime to) {
+        return this.appointmentEntityRepository.findAppointmentEntitiesBetweenFromAndTo(from,to);
     }
 
     public AppointmentEntity reservation(String name,LocalDateTime from, LocalDateTime to) throws ReservationException {
@@ -44,9 +44,9 @@ public class AppointmentService {
             throw new ReservationException("You can not reserve more than 3 hours");
         }
 
-        Optional<AppointmentEntity> existingEntity = betweenTwoDates(from,to);
+        List<AppointmentEntity> existingEntity = betweenTwoDates(from,to);
 
-        if(existingEntity.isPresent()) {
+        if(!existingEntity.isEmpty()) {
             throw new ReservationException("The timetable has already reserved between "+from+" and "+to);
         }
 

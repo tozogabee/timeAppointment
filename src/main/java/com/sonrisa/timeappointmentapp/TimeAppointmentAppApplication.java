@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableJpaRepositories
-//@EnableSwagger2
 public class TimeAppointmentAppApplication {
 
     public static void main(String[] args) {

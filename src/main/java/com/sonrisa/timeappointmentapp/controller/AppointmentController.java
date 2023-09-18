@@ -35,8 +35,8 @@ public class AppointmentController {
 
     @PostMapping(value = "/create", produces = "application/json")
     public ResponseEntity<AppointmentEntity> addNewAppointment(@RequestBody AppointmentInput input) throws ReservationException {
-        LocalDateTime from = input.getFrom();
-        LocalDateTime to = input.getTo();
+        LocalDateTime from = LocalDateTime.parse(input.getFrom());
+        LocalDateTime to = LocalDateTime.parse(input.getTo());
         String name = input.getName();
 
         AppointmentEntity newEntity = this.appointmentService.reservation(name,from, to);
