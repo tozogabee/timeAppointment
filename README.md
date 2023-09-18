@@ -32,11 +32,11 @@ Welcome on us.
     </tr>
     <tr>
         <td>/appointment/all</td>
-        <td>GET request</td>
+        <td>GET request - listing all reservations in the database.</td>
     </tr>
     <tr>
         <td>/appointment/delete</td>
-        <td>DELETE request</td>
+        <td>DELETE request - remove all reservations.</td>
     </tr>
 </table>
 
