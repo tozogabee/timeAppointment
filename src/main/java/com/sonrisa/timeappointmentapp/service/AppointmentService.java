@@ -74,4 +74,8 @@ public class AppointmentService {
         this.appointmentEntityRepository.deleteAll();
     }
 
+    public void removeReservationById(long id) {
+        this.appointmentEntityRepository.deleteById(id);
+    }
+
 }
